@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="container-fluid py-3 bg-black text-white">
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      
+      <!-- Logo -->
+      <div class="col-12 col-lg-3 text-center text-lg-start mb-3 mb-lg-0">
+        <h1 class="logo mb-0">NATIONAL FORECAST</h1>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="col-12 col-lg-5 mb-3 mb-lg-0">
+        <form id="searchForm" class="d-flex justify-content-center justify-content-lg-start">
+          <input type="text" class="form-control me-2" placeholder="Enter city" id="searchInput">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+
+      <!-- Language Selector + SMS Button -->
+      <div class="col-12 col-lg-4 text-center text-lg-end">
+        <div class="d-flex justify-content-center justify-content-lg-end align-items-center flex-wrap gap-2">
+          <label for="languageSelector" class="form-label mb-0">Read in Nigerian Languages:</label>
+          <select id="languageSelector" class="form-select form-select-sm w-auto">
+            <option disabled selected>Select Language</option>
+            <option value="en">English</option>
+            <option value="ig">Igbo</option>
+            <option value="ha">Hausa</option>
+            <option value="yo">Yoruba</option>
+            <option value="id">Idoma</option>
+            <option value="tv">Tiv</option>
+            <option value="eg">Egede</option>
+          </select>
+          <a href="sms.html" class="btn btn-outline-success btn-sm">Check via SMS</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+
+<!-- Hero Section -->
+<section class="hero py-5" style="background-color: rgba(0,0,0,0.1);">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Weather Panel -->
+      <div class="col-lg-8">
+        <div class="text-white p-4 bg-primary bg-opacity-75 rounded">
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="fw-bold mb-0" id="cityName">Makurdi, Benue</p>
+            <p class="mb-0">
+              <span class="me-3" id="currentDate">Tuesday, July 23</span>
+              <span id="currentTime">16:43pm</span>
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center my-4">
+            <div>
+              <p class="mb-1" id="feels">Feels like: 30°C</p>
+              <h1 class="display-1 fw-bold mb-0" style="line-height: 1;"><span id="currentTemp">29°C</span> <span id="weatherIcon">☁️</span></h1>
+              <p class="fs-5 text-capitalize" id="weather">Cloudy</p>
+            </div>
+          </div>
+
+          <div class="row text-white">
+            <div class="col-md-6 mb-3">
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>High/Low</p><p>26°/22°</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Wind</p><p>8 km/h</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Humidity</p><p>96%</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Wind Direction</p><p>North</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p>Pressure</p><p>1015.2 mb</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Cloud Cover</p><p>100%</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Visibility</p><p>9.66 km</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>UV Index</p><p>0 of 11</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom pb-1">
+                <p>Air Quality</p><p>Good</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p>Air Quality Index</p><p>0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations Panel -->
+      <div class="col-lg-4">
+         <div class="container">
+    <h2 class="text-center">Benue Weather Forecast & Tips</h2>
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <!-- Weather Info -->
+        <div class="card p-4">
+          <h5>Current Weather:</h5>
+          <p id="weather-condition">Loading...</p>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card p-4 mt-3">
+          <h5>Recommendations:</h5>
+          <ul id="recommendation-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const weatherRecommendations = {
+      Clear: [
+        "Stay hydrated — drink plenty of water.",
+        "Wear sunglasses and sunscreen.",
+        "Avoid outdoor activities during midday heat."
+      ],
+      Clouds: [
+        "Keep an umbrella handy — weather can change.",
+        "Wear layers to stay comfortable.",
+        "UV rays still affect skin — wear sunscreen."
+      ],
+      Rain: [
+        "Carry an umbrella or raincoat.",
+        "Wear non-slip footwear.",
+        "Avoid walking or driving through floodwaters."
+      ],
+      Thunderstorm: [
+        "Stay indoors and unplug electronics.",
+        "Avoid using wired electronics.",
+        "Do not shelter under trees."
+      ],
+      Drizzle: [
+        "Light rain — keep an umbrella with you.",
+        "Wear water-resistant shoes."
+      ],
+      Snow: [
+        "Wear warm layers and waterproof boots.",
+        "Drive slowly and carefully.",
+        "Keep emergency supplies if traveling."
+      ],
+      Mist: [
+        "Drive with fog lights on.",
+        "Move slowly and avoid sudden stops."
+      ],
+      Fog: [
+        "Use low-beam headlights.",
+        "Avoid unnecessary travel if visibility is poor."
+      ],
+      Haze: [
+        "Wear a mask if air quality is low.",
+        "Avoid prolonged outdoor exposure."
+      ],
+      Dust: [
+        "Wear a face mask.",
+        "Keep windows and doors shut.",
+        "Stay indoors if you have respiratory conditions."
+      ],
+      Sand: [
+        "Protect eyes and mouth from sand.",
+        "Avoid long exposure to open areas."
+      ],
+      Smoke: [
+        "Avoid outdoor physical activity.",
+        "Use air purifiers indoors if possible."
+      ]
+    };
+
+    async function fetchWeather(location = "Makurdi") {
+      const apiKey = "b5bac71479609d5bc0233dbb19b07a25"; // Replace with your key
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const condition = data.weather[0].main;
+        document.getElementById("weather-condition").textContent = `${condition} (${data.weather[0].description})`;
+        displayRecommendations(condition);
+      } catch (error) {
+        console.error("Failed to fetch weather:", error);
+        document.getElementById("weather-condition").textContent = "Error fetching weather";
+      }
+    }
+
+    function displayRecommendations(condition) {
+      const tipsContainer = document.getElementById("recommendation-list");
+      tipsContainer.innerHTML = "";
+      const tips = weatherRecommendations[condition];
+
+      if (tips) {
+        tips.forEach(tip => {
+          const li = document.createElement("li");
+          li.textContent = tip;
+          tipsContainer.appendChild(li);
+        });
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "No specific recommendations for this condition.";
+        tipsContainer.appendChild(li);
+      }
+    }
+
+    // Call on page load
+    fetchWeather();
+  </script>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Forecast Tabs -->
+<div class="container mb-5">
+  <ul class="nav nav-tabs justify-content-center" id="forecastTabs">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#today">Today</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#week">This Week</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#month">This Month</a></li>
+  </ul>
+
+  <div class="tab-content mt-4">
+    <div class="tab-pane fade show active" id="today">
+      <div class="row text-center">
+        <div class="col">
+          <div class="card p-3">
+            <h5>🌤️ Tuesday</h5>
+            <p>30°C — Partly Cloudy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="week">
+      <p class="text-center mt-3">Weekly forecast coming soon...</p>
+    </div>
+    <div class="tab-pane fade" id="month">
+      <p class="text-center mt-3">Monthly forecast under development...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-3 text-center">
+  <small>&copy; 2025 BenueWeather. Powered by Local Data & NIMET API</small>
+</footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>

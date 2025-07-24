@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Recommendations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 1rem;
+    }
+    ul li::before {
+      content: "☑️ ";
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Benue Weather Forecast & Tips</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <!-- Weather Info -->
+        <div class="card p-4">
+          <h5>Current Weather:</h5>
+          <p id="weather-condition">Loading...</p>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card p-4 mt-3">
+          <h5>Recommendations:</h5>
+          <ul id="recommendation-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const weatherRecommendations = {
+      Clear: [
+        "Stay hydrated — drink plenty of water.",
+        "Wear sunglasses and sunscreen.",
+        "Avoid outdoor activities during midday heat."
+      ],
+      Clouds: [
+        "Keep an umbrella handy — weather can change.",
+        "Wear layers to stay comfortable.",
+        "UV rays still affect skin — wear sunscreen."
+      ],
+      Rain: [
+        "Carry an umbrella or raincoat.",
+        "Wear non-slip footwear.",
+        "Avoid walking or driving through floodwaters."
+      ],
+      Thunderstorm: [
+        "Stay indoors and unplug electronics.",
+        "Avoid using wired electronics.",
+        "Do not shelter under trees."
+      ],
+      Drizzle: [
+        "Light rain — keep an umbrella with you.",
+        "Wear water-resistant shoes."
+      ],
+      Snow: [
+        "Wear warm layers and waterproof boots.",
+        "Drive slowly and carefully.",
+        "Keep emergency supplies if traveling."
+      ],
+      Mist: [
+        "Drive with fog lights on.",
+        "Move slowly and avoid sudden stops."
+      ],
+      Fog: [
+        "Use low-beam headlights.",
+        "Avoid unnecessary travel if visibility is poor."
+      ],
+      Haze: [
+        "Wear a mask if air quality is low.",
+        "Avoid prolonged outdoor exposure."
+      ],
+      Dust: [
+        "Wear a face mask.",
+        "Keep windows and doors shut.",
+        "Stay indoors if you have respiratory conditions."
+      ],
+      Sand: [
+        "Protect eyes and mouth from sand.",
+        "Avoid long exposure to open areas."
+      ],
+      Smoke: [
+        "Avoid outdoor physical activity.",
+        "Use air purifiers indoors if possible."
+      ]
+    };
+
+    async function fetchWeather(location = "Makurdi") {
+      const apiKey = "b5bac71479609d5bc0233dbb19b07a25"; // Replace with your key
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const condition = data.weather[0].main;
+        document.getElementById("weather-condition").textContent = `${condition} (${data.weather[0].description})`;
+        displayRecommendations(condition);
+      } catch (error) {
+        console.error("Failed to fetch weather:", error);
+        document.getElementById("weather-condition").textContent = "Error fetching weather";
+      }
+    }
+
+    function displayRecommendations(condition) {
+      const tipsContainer = document.getElementById("recommendation-list");
+      tipsContainer.innerHTML = "";
+      const tips = weatherRecommendations[condition];
+
+      if (tips) {
+        tips.forEach(tip => {
+          const li = document.createElement("li");
+          li.textContent = tip;
+          tipsContainer.appendChild(li);
+        });
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "No specific recommendations for this condition.";
+        tipsContainer.appendChild(li);
+      }
+    }
+
+    // Call on page load
+    fetchWeather();
+  </script>
+</body>
+</html>
