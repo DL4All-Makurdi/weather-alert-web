@@ -1,0 +1,1 @@
+Weather forecast web app for farmers using OpenWeather API
