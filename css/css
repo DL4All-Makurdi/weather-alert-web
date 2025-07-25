@@ -1,0 +1,181 @@
+/* General Reset and Fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('../images/images/');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  color: #333;
+  min-height: 100vh;
+}
+.container {
+  width: 60%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  background-color: #212529;
+  padding: 1rem 0;
+  color: #424346;
+}
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.language-label {
+  font-size: 0.9rem;
+}
+.language-dropdown {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.sms-btn {
+  background: #94d2bd;
+  color: #000;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.sms-btn:hover {
+  background: #52b69a;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 3rem 0;
+}
+.location {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.weather-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.weather-main img {
+  width: 100px;
+}
+.temp-details p {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Current Weather */
+.current-weather {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+   opacity: 0.5; /* Adjust this value for more/less transparency */
+  z-index: -1;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* sun-position */
+.sun-arc {
+  width: 100%;
+  max-width: 300px;
+  height: 150px;
+  border-top: 4px solid #facc15; /* yellow-400 */
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-radius: 50%/100%;
+  margin: auto;
+  position: relative;
+}
+
+#sun-indicator {
+  position: absolute;
+  top: -16px;
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  transform: translateX(-50%);
+}
+/* sun-position */
+/* table */
+ table {
+    border-radius: 10px;
+    width: 100%;
+    overflow: hidden;
+  }
+  thead th {
+    background-color: #343a40 !important;
+    color: #fff;
+  }
+  tbody {
+    background-color: #6c757d !important;
+  }
+/* Forecast */
+.forecast {
+  padding: 2rem 0;
+}
+.forecast h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.forecast-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+.forecast-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.forecast-card img {
+  width: 50px;
+}
+/* ffrgrfg */
+/* Responsive translucent content box */
+.translucent-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+/* Body styling with full height */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+/* Make sure the main content expands fully between header and footer */
+main {
+  min-height: calc(100vh - 6rem); /* Adjust height minus header/footer height */
+}
+
+/* Responsive text alignment if needed */
+@media (max-width: 576px) {
+  h1, h2, h4 {
+    text-align: center;
+  }
+}

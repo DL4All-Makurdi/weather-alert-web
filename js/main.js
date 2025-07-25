@@ -1,138 +1,263 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-    const logoutButton = document.getElementById('logoutButton');
+   
     const currentDateTime = document.getElementById('currentDateTime');
-    const locationSelect = document.getElementById('location');
-    const getWeatherButton = document.getElementById('getWeatherButton');
-    const weatherLocation = document.getElementById('weatherLocation');
-    const temperatureDisplay = document.getElementById('temperature');
-    const conditionDisplay = document.getElementById('condition');
-    const recommendationsList = document.getElementById('recommendationsList');
-    const weatherIcon = document.getElementById('weatherIcon');
-    const loadingMessage = document.getElementById('loadingMessage');
 
-    // Safety check for essential elements
-    if (!themeToggle || !logoutButton || !currentDateTime) {
-        console.error("Missing essential DOM elements.");
-        return;
-    }
-
-    // Load dark mode preference from localStorage
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-
-    // Theme Toggle
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-
-    // Logout placeholder
-    logoutButton.addEventListener('click', () => {
-        alert('Logging out...');
-        // Add real logout/session logic here
-    });
-
+  
     // Display live date and time
-    function updateDateTime() {
+     function updateDateTime() {
         const now = new Date();
         currentDateTime.textContent = now.toLocaleString();
     }
     setInterval(updateDateTime, 1000);
     updateDateTime();
+ 
 
-// Update background based on weather condition
-  function updateWeatherBackground(condition) {
-    const cond = condition.toLowerCase();
+    const apiKey = "b5bac71479609d5bc0233dbb19b07a25"; // Replace with your actual API key
+let defaultCity = "Makurdi"; // fallback city
 
-    document.body.classList.remove(
-      'weather-clear',
-      'weather-clouds',
-      'weather-rain',
-      'weather-thunderstorm',
-      'weather-snow',
-      'weather-mist',
-      'weather-fog',
-      'weather-haze'
-    );
+// ✅ Check if JavaScript is running
+console.log("✅ JavaScript loaded");
 
-    if (cond.includes('clear')) {
-      document.body.classList.add('weather-clear');
-    } else if (cond.includes('cloud')) {
-      document.body.classList.add('weather-clouds');
-    } else if (cond.includes('rain')) {
-      document.body.classList.add('weather-rain');
-    } else if (cond.includes('thunder')) {
-      document.body.classList.add('weather-thunderstorm');
-    } else if (cond.includes('snow')) {
-      document.body.classList.add('weather-snow');
-    } else if (cond.includes('mist') || cond.includes('fog') || cond.includes('haze')) {
-      document.body.classList.add('weather-mist');
+// 📍 Get user's current location
+navigator.geolocation.getCurrentPosition(
+  async (position) => {
+    const { latitude, longitude } = position.coords;
+
+    // 🌐 Use OpenWeatherMap's reverse geocoding to get city name from coordinates
+    const reverseGeoUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+    
+    try {
+      const geoResponse = await fetch(reverseGeoUrl);
+      const geoData = await geoResponse.json();
+      
+      if (geoData && geoData[0]) {
+        defaultCity = geoData[0].name;
+        console.log("📍 Detected city:", defaultCity);
+        getCurrentWeather(defaultCity); // fetch weather for detected city
+      }
+    } catch (error) {
+      console.error("⚠️ Failed to detect city. Falling back to default:", error);
+      getCurrentWeather(defaultCity);
     }
+  },
+  (error) => {
+    console.warn("⚠️ Geolocation not allowed or failed. Using default city.");
+    getCurrentWeather(defaultCity);
+  }
+);
+
+// 🌦️ Function to fetch current weather
+async function getCurrentWeather(city = defaultCity) {
+  console.log(`🌍 Fetching weather for: ${city}`);
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  console.log(`🔗 Request URL: ${url}`);
+
+  try {
+    const response = await fetch(url);
+    console.log("📡 Response status:", response.status);
+
+    if (!response.ok) throw new Error("Weather data not found.");
+
+    const data = await response.json();
+    console.log("✅ Weather data received:", data);
+
+    const temperature = Math.round(data.main.temp);
+    const description = data.weather[0].description;
+    const iconCode = data.weather[0].icon;
+
+    // 🌡️ Update DOM elements
+    document.getElementById("cityName").innerText = data.name;
+    document.getElementById("currentTemp").innerText = `${temperature}°C`;
+    document.getElementById("feels").innerText = `Feels like: ${Math.round(data.main.feels_like)}°C`;
+
+    const weather = document.getElementById("weather");
+    const info = data.weather[0];
+    weather.innerText = info.main + " – " + info.description.charAt(0).toUpperCase() + info.description.slice(1);
+    weatherIcon.innerText = info.icon;
+    // 🕒 Add Date and Time
+
+
+    // const dateElem = document.getElementById("date");
+    // const timeElem = document.getElementById("time");
+
+    // const now = new Date();
+    // dateElem.innerText = now.toDateString();
+    // timeElem.innerText = now.toLocaleTimeString();
+  } catch (error) {
+    console.error("Failed to fetch weather:", error);
+    document.getElementById("currentTemp").innerText = "--";
+    document.getElementById("weather").innerText = "Error loading weather";
+  }
+}
+
+const weatherRecommendations = {
+                      Clear: [
+                        "Stay hydrated — drink plenty of water.",
+                        "Wear sunglasses and sunscreen.",
+                        "Avoid outdoor activities during midday heat."
+                      ],
+                      Clouds: [
+                        "Keep an umbrella handy — weather can change.",
+                        "Wear layers to stay comfortable.",
+                        "UV rays still affect skin — wear sunscreen."
+                      ],
+                      Rain: [
+                        "Carry an umbrella or raincoat.",
+                        "Wear non-slip footwear.",
+                        "Avoid walking or driving through floodwaters."
+                      ],
+                      Thunderstorm: [
+                        "Stay indoors and unplug electronics.",
+                        "Avoid using wired electronics.",
+                        "Do not shelter under trees."
+                      ],
+                      Drizzle: [
+                        "Light rain — keep an umbrella with you.",
+                        "Wear water-resistant shoes."
+                      ],
+                      Snow: [
+                        "Wear warm layers and waterproof boots.",
+                        "Drive slowly and carefully.",
+                        "Keep emergency supplies if traveling."
+                      ],
+                      Mist: [
+                        "Drive with fog lights on.",
+                        "Move slowly and avoid sudden stops."
+                      ],
+                      Fog: [
+                        "Use low-beam headlights.",
+                        "Avoid unnecessary travel if visibility is poor."
+                      ],
+                      Haze: [
+                        "Wear a mask if air quality is low.",
+                        "Avoid prolonged outdoor exposure."
+                      ],
+                      Dust: [
+                        "Wear a face mask.",
+                        "Keep windows and doors shut.",
+                        "Stay indoors if you have respiratory conditions."
+                      ],
+                      Sand: [
+                        "Protect eyes and mouth from sand.",
+                        "Avoid long exposure to open areas."
+                      ],
+                      Smoke: [
+                        "Avoid outdoor physical activity.",
+                        "Use air purifiers indoors if possible."
+                      ]
+                    };
+
+                    async function fetchWeather(location = "Makurdi") {
+                      const apiKey = "b5bac71479609d5bc0233dbb19b07a25"; // Replace with your key
+                      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+                      try {
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        const condition = data.weather[0].main;
+                        document.getElementById("weather-condition").textContent = `${condition} (${data.weather[0].description})`;
+                        displayRecommendations(condition);
+                      } catch (error) {
+                        console.error("Failed to fetch weather:", error);
+                        document.getElementById("weather-condition").textContent = "Error fetching weather";
+                      }
+                    }
+
+                    function displayRecommendations(condition) {
+                      const tipsContainer = document.getElementById("recommendation-list");
+                      tipsContainer.innerHTML = "";
+                      const tips = weatherRecommendations[condition];
+
+                      if (tips) {
+                        tips.forEach(tip => {
+                          const li = document.createElement("li");
+                          li.textContent = tip;
+                          tipsContainer.appendChild(li);
+                        });
+                      } else {
+                        const li = document.createElement("li");
+                        li.textContent = "No specific recommendations for this condition.";
+                        tipsContainer.appendChild(li);
+                      }
+                    }
+
+                    // Call on page load
+                    fetchWeather();
+
+     // Time-based background image
+    /*  function updateBackgroundImage() {
+  const hour = new Date().getHours();
+  const isDayTime = hour >= 6 && hour < 18;
+  document.body.style.backgroundImage = isDayTime
+    ? "url('./img/weather1.jpg')"
+    : "url('./img/weather2.jpg')";
+    }
+
+    // Call on page load
+updateBackgroundImage();
+
+// Re-check every 5 minutes
+setInterval(updateBackgroundImage, 5 * 60 * 1000); */
+
+function setBackgroundBasedOnTime() {
+  const hour = new Date().getHours();
+  const body = document.body;
+
+  let backgroundImage = "";
+
+  if (hour >= 5 && hour < 12) {
+    // Morning
+    backgroundImage = "url('images/morning.jpg')";
+  } else if (hour >= 12 && hour < 17) {
+    // Afternoon
+    backgroundImage = "url('images/afternoon.jpg')";
+  } else if (hour >= 17 && hour < 20) {
+    // Evening
+    backgroundImage = "url('images/evening.jpg')";
+  } else {
+    // Night
+    backgroundImage = "url('./images/night.jpg')";
   }
 
-    // Get Weather with mock data
-    getWeatherButton.addEventListener('click', () => {
-        const selectedLocation = locationSelect.value;
-        weatherLocation.textContent = `Weather in ${selectedLocation}`;
-        loadingMessage.style.display = 'block';
+  body.style.backgroundImage = backgroundImage;
+  body.style.backgroundSize = "cover";
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundPosition = "center";
+  body.style.backgroundAttachment = "fixed";
+}
 
-        setTimeout(() => {
-            loadingMessage.style.display = 'none';
+setBackgroundBasedOnTime();
 
-            let temp, cond, iconUrl, recommendations;
-
-            if (selectedLocation === 'Makurdi') {
-                temp = ' > 30°C-35°C (86°F)';
-                cond = 'Hot and Sunny';
-                iconUrl = './img/sunny.png';
-                recommendations = [
-                    'Wear light-weight and colored clothes',
-                    'Drink plenty of water',
-                    'Have proper ventilation'
-                ];
-            } else if (selectedLocation === 'Gboko') {
-                temp = '> 21°C-29°C (70°F-82°F)';
-                cond = 'Partly Cloudy';
-                iconUrl = './img/cloudy.png';
-                recommendations = [
-                    'Stay hydrated',
-                    'Consider light clothing'
-                ];
-            } else if (selectedLocation === 'Otukpo') {
-                temp = '> 35°C (95°F)';
-                cond = 'Very Hot';
-                iconUrl = './img/hot.png';
-                recommendations = [
-                    'Avoid prolonged sun exposure',
-                    'Seek shade during peak hours',
-                    'Ensure adequate hydration'
-                ];
-            } else {
-                temp = 'N/A';
-                cond = 'Select a location';
-                iconUrl = '';
-                recommendations = [];
-            }
-
-            temperatureDisplay.textContent = `Temperature: ${temp}`;
-            conditionDisplay.textContent = `Condition: ${cond}`;
-            weatherIcon.src = iconUrl;
-            weatherIcon.alt = cond;
-            weatherIcon.style.display = iconUrl ? 'block' : 'none';
-
-            recommendationsList.innerHTML = '';
-            recommendations.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.textContent = item;
-                recommendationsList.appendChild(listItem);
-            });
-
-        }, 500); // Simulate a short delay
-    });
-
-    // Auto-load weather for Makurdi on page load
-    getWeatherButton.click();
 });
+
+
+ // ✅ YouTube Video Grid (Dynamic)
+        const API_KEY = "YOUR_YOUTUBE_API_KEY"; // Replace this!
+        const videoGrid = document.getElementById("videoGrid");
+        const query = "weather forecast";
+
+        fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${query}&key=${API_KEY}&type=video`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            data.items.forEach((video) => {
+              const videoId = video.id.videoId;
+              const thumb = video.snippet.thumbnails.high.url;
+
+              const box = document.createElement("div");
+              box.className = "video-box";
+              box.innerHTML = `<img src="${thumb}" alt="Video Preview">`;
+
+              box.addEventListener("click", () => {
+                box.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+              });
+
+              videoGrid.appendChild(box);
+            });
+          })
+          .catch((err) => {
+            console.error("YouTube API error:", err);
+            videoGrid.innerHTML = "<p style='color:red'>Failed to load videos.</p>";
+          });
