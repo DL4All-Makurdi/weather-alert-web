@@ -1,17 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
-   
-    const currentDateTime = document.getElementById('currentDateTime');
+/* document.addEventListener('DOMContentLoaded', () => { */
 
-  
-    // Display live date and time
-     function updateDateTime() {
-        const now = new Date();
-        currentDateTime.textContent = now.toLocaleString();
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
- 
+ const dateElement = document.getElementById("currentDate");
+const timeElement = document.getElementById("currentTime");
 
+// Get current date and time
+const now = new Date();
+
+// Format date (e.g., "Wednesday, July 23, 2025")
+const dateOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+dateElement.innerText = now.toLocaleDateString("en-US", dateOptions);
+
+// Format time (e.g., "02:15 PM")
+const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: true };
+timeElement.innerText = now.toLocaleTimeString("en-US", timeOptions); 
+    
     const apiKey = "b5bac71479609d5bc0233dbb19b07a25"; // Replace with your actual API key
 let defaultCity = "Makurdi"; // fallback city
 
@@ -77,6 +79,7 @@ async function getCurrentWeather(city = defaultCity) {
     weatherIcon.innerText = info.icon;
     // 🕒 Add Date and Time
 
+    
 
     // const dateElem = document.getElementById("date");
     // const timeElem = document.getElementById("time");
@@ -185,20 +188,6 @@ const weatherRecommendations = {
                     // Call on page load
                     fetchWeather();
 
-     // Time-based background image
-    /*  function updateBackgroundImage() {
-  const hour = new Date().getHours();
-  const isDayTime = hour >= 6 && hour < 18;
-  document.body.style.backgroundImage = isDayTime
-    ? "url('./img/weather1.jpg')"
-    : "url('./img/weather2.jpg')";
-    }
-
-    // Call on page load
-updateBackgroundImage();
-
-// Re-check every 5 minutes
-setInterval(updateBackgroundImage, 5 * 60 * 1000); */
 
 function setBackgroundBasedOnTime() {
   const hour = new Date().getHours();
@@ -229,7 +218,7 @@ function setBackgroundBasedOnTime() {
 
 setBackgroundBasedOnTime();
 
-});
+/* }) */;
 
 
  // ✅ YouTube Video Grid (Dynamic)
