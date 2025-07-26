@@ -220,33 +220,3 @@ setBackgroundBasedOnTime();
 
 /* }) */;
 
-
- // ✅ YouTube Video Grid (Dynamic)
-        const API_KEY = "YOUR_YOUTUBE_API_KEY"; // Replace this!
-        const videoGrid = document.getElementById("videoGrid");
-        const query = "weather forecast";
-
-        fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${query}&key=${API_KEY}&type=video`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            data.items.forEach((video) => {
-              const videoId = video.id.videoId;
-              const thumb = video.snippet.thumbnails.high.url;
-
-              const box = document.createElement("div");
-              box.className = "video-box";
-              box.innerHTML = `<img src="${thumb}" alt="Video Preview">`;
-
-              box.addEventListener("click", () => {
-                box.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
-              });
-
-              videoGrid.appendChild(box);
-            });
-          })
-          .catch((err) => {
-            console.error("YouTube API error:", err);
-            videoGrid.innerHTML = "<p style='color:red'>Failed to load videos.</p>";
-          });
