@@ -11,22 +11,30 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="bg-dark text-white py-3">
-      <div
-        class="container d-flex flex-column flex-md-row justify-content-center align-items-center">
-        <h1 class="logo mb-2 mb-md-0">⛅WEATHERMAN⛅</h1>
-        <div class="d-flex flex-column flex-md-row align-items-md-center gap-2">
-          <a href="index.html" class="btn btn-success btn-sm">Weather</a>
-        </div>
-      </div>
-    </header>
+<header class="bg-dark text-white py-3">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- Empty div to push the logo to center -->
+      <div class="d-none d-md-block" style="width: 120px;"></div>
 
-    <section class="bg-dark text-white py-3">
-      <div class="container text-center">
-        <h1 class="mb-0">Weather USSD Service</h1>
-        <p class="lead">Get accurate local weather by USSD</p>
+      <!-- Centered Logo -->
+      <h1 class="logo text-center mb-0 flex-grow-1">⛅WEATHERMAN FOR FARMERS⛅</h1>
+
+      <!-- Right-side Button -->
+      <div class="text-end">
+        <a href="index.html" class="btn btn-success btn-sm">Weather</a>
       </div>
-    </section>
+    </div>
+  </div>
+</header>
+
+
+  <section class="text-white py-3">
+    <div class="container text-center">
+      <h1 class="mb-0">Weather SMS Service</h1>
+      <p class="lead">Get accurate local weather by SMS</p>
+    </div>
+  </section>
 
     <!-- Main Content -->
     <main
