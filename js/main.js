@@ -69,8 +69,7 @@ const humidity = document.getElementById("humidity");
 const pressure = document.getElementById("pressure");
 const visibility = document.getElementById("visibility");
 const tipsContainer = document.getElementById("recommendation-list");
-const dateElem = document.getElementById("date");
-const timeElem = document.getElementById("time");
+const predictions = document.getElementById("predictionList");
 
 async function fetchLgas(target, state) {
   const defaultOption = document.createElement("option");
@@ -109,36 +108,53 @@ searchForm.addEventListener("submit", async (e) => {
   const state = states.value;
   const lga = lgas.value;
 
-  try {
-    response = await fetch(
-      `${BACKEND}/weather/current?state=${state}&lga=${lga}`
-    );
-    if (!response.ok) throw new Error("Weather data not found.");
-
-    const data = await response.json();
-
-    city.innerText = data.location;
-    currTemp.innerText = data.temperature;
-    highTemp.innerText = data.high_temp;
-    lowTemp.innerText = data.low_temp;
-    feelsLike.innerText = data.feels;
-    weatherIcon.src = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
-    weather.innerText = `${data.weather}`;
-    wCondition.innerText = `${data.condition}`;
-    tipsContainer.innerHTML = "";
-    data.advice.split(".").forEach((item) => {
-      if (item) {
-        const li = document.createElement("li");
-        li.innerText = item;
-        tipsContainer.appendChild(li);
-      }
+  fetch(`${BACKEND}/weather/current?state=${state}&lga=${lga}`)
+    .then((res) => res.json())
+    .then((data) => {
+      city.innerText = data.location;
+      currTemp.innerText = data.temperature;
+      highTemp.innerText = data.high_temp;
+      lowTemp.innerText = data.low_temp;
+      feelsLike.innerText = data.feels;
+      weatherIcon.src = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
+      weather.innerText = data.weather;
+      wCondition.innerText = `${data.condition}`;
+      tipsContainer.innerHTML = "";
+      data.advice.split(".").forEach((item) => {
+        if (item) {
+          const li = document.createElement("li");
+          li.innerText = item;
+          tipsContainer.appendChild(li);
+        }
+      });
+      humidity.innerText = data.humidity;
+      pressure.innerText = data.pressure;
+      visibility.innerText = data.visibility;
+    })
+    .catch((error) => {
+      console.error("Failed to fetch weather:", error);
     });
-    humidity.innerText = data.humidity;
-    pressure.innerText = data.pressure;
-    visibility.innerText = data.visibility;
-  } catch (error) {
-    console.error("Failed to fetch weather:", error);
-  }
+
+  fetch(`${BACKEND}/weather/forecast?state=${state}&lga=${lga}&days=7`)
+    .then((res) => res.json())
+    .then((data) => {
+      predictions.innerHTML = "";
+      for (const [date, value] of Object.entries(data.forecast)) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${date}</td>
+        <td><img src="https://openweathermap.org/img/wn/${value.icon}@2x.png" width="32"/> ${value.weather}</td>
+        <td>${value.high_temp}°C / ${value.low_temp}°C</td>
+        <td>${value.pressure}</td>
+        <td>${value.visibility}</td>
+        <td>${value.humidity}</td>`;
+
+        predictions.appendChild(row);
+      }
+    })
+    .catch((error) => {
+      console.error("Failed to fetch weather:", error);
+    });
 });
 
 const weatherRecommendations = {
