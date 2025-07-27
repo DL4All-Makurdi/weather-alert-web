@@ -6,631 +6,337 @@
     <title>WEATHERMAN FOR FARMERS</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
 
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <!-- Header -->
-<header class="container-fluid py-3 bg-black text-white">
-  <div class="container">
-    <div class="row align-items-center justify-content-between">
-      <!-- Logo -->
-      <div class="col-lg-5 col-md-12 mb-3 mb-lg-0 text-center text-lg-start">
-        <h1 class="logo mb-0">⛅WEATHERMAN FOR FARMERS⛅</h1>
+    <header class="container-fluid py-3 bg-black text-white">
+      <div class="container">
+        <div class="row align-items-center justify-content-between">
+          <!-- Logo -->
+          <div
+            class="col-lg-5 col-md-12 mb-3 mb-lg-0 text-center text-lg-start"
+          >
+            <h1 class="logo mb-0">⛅WEATHERMAN FOR FARMERS⛅</h1>
+          </div>
+
+          <!-- Search Form -->
+          <div class="col-lg-5 col-md-12 mb-3 mb-lg-0">
+            <form id="searchForm" class="d-flex flex-column flex-md-row gap-2">
+              <select id="stateSelect" class="form-select">
+                <option value="">Select State</option>
+                <option value="Abia">Abia</option>
+                <option value="Adamawa">Adamawa</option>
+                <option value="Akwa Ibom">Akwa Ibom</option>
+                <option value="Anambra">Anambra</option>
+                <option value="Bauchi">Bauchi</option>
+                <option value="Bayelsa">Bayelsa</option>
+                <option value="Benue">Benue</option>
+                <option value="Borno">Borno</option>
+                <option value="Cross River">Cross River</option>
+                <option value="Delta">Delta</option>
+                <option value="Ebonyi">Ebonyi</option>
+                <option value="Edo">Edo</option>
+                <option value="Ekiti">Ekiti</option>
+                <option value="Enugu">Enugu</option>
+                <option value="Gombe">Gombe</option>
+                <option value="Imo">Imo</option>
+                <option value="Jigawa">Jigawa</option>
+                <option value="Kaduna">Kaduna</option>
+                <option value="Kano">Kano</option>
+                <option value="Katsina">Katsina</option>
+                <option value="Kebbi">Kebbi</option>
+                <option value="Kogi">Kogi</option>
+                <option value="Kwara">Kwara</option>
+                <option value="Lagos">Lagos</option>
+                <option value="Nasarawa">Nasarawa</option>
+                <option value="Niger">Niger</option>
+                <option value="Ogun">Ogun</option>
+                <option value="Ondo">Ondo</option>
+                <option value="Osun">Osun</option>
+                <option value="Oyo">Oyo</option>
+                <option value="Plateau">Plateau</option>
+                <option value="Rivers">Rivers</option>
+                <option value="Sokoto">Sokoto</option>
+                <option value="Taraba">Taraba</option>
+                <option value="Yobe">Yobe</option>
+                <option value="Zamfara">Zamfara</option>
+                <option value="FCT">FCT</option>
+              </select>
+
+              <select id="lgaSelect" class="form-select">
+                <option value="">Select Local Government</option>
+              </select>
+
+              <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+          </div>
+
+          <!-- USSD Button -->
+          <div class="col-lg-2 col-md-12 text-center text-lg-end">
+            <a href="ussd.html" class="btn btn-success btn-sm w-100 w-lg-auto"
+              >Check via USSD</a
+            >
+          </div>
+        </div>
       </div>
-
-      <!-- Search Form -->
-      <div class="col-lg-5 col-md-12 mb-3 mb-lg-0">
-        <form id="searchForm" class="d-flex flex-column flex-md-row gap-2">
-          <select id="stateSelect" class="form-select">
-            <option value="">Select State</option>
-            <option value="Abia">Abia</option>
-            <option value="Adamawa">Adamawa</option>
-            <option value="Akwa Ibom">Akwa Ibom</option>
-            <option value="Anambra">Anambra</option>
-            <option value="Bauchi">Bauchi</option>
-            <option value="Bayelsa">Bayelsa</option>
-            <option value="Benue">Benue</option>
-            <option value="Borno">Borno</option>
-            <option value="Cross River">Cross River</option>
-            <option value="Delta">Delta</option>
-            <option value="Ebonyi">Ebonyi</option>
-            <option value="Edo">Edo</option>
-            <option value="Ekiti">Ekiti</option>
-            <option value="Enugu">Enugu</option>
-            <option value="Gombe">Gombe</option>
-            <option value="Imo">Imo</option>
-            <option value="Jigawa">Jigawa</option>
-            <option value="Kaduna">Kaduna</option>
-            <option value="Kano">Kano</option>
-            <option value="Katsina">Katsina</option>
-            <option value="Kebbi">Kebbi</option>
-            <option value="Kogi">Kogi</option>
-            <option value="Kwara">Kwara</option>
-            <option value="Lagos">Lagos</option>
-            <option value="Nasarawa">Nasarawa</option>
-            <option value="Niger">Niger</option>
-            <option value="Ogun">Ogun</option>
-            <option value="Ondo">Ondo</option>
-            <option value="Osun">Osun</option>
-            <option value="Oyo">Oyo</option>
-            <option value="Plateau">Plateau</option>
-            <option value="Rivers">Rivers</option>
-            <option value="Sokoto">Sokoto</option>
-            <option value="Taraba">Taraba</option>
-            <option value="Yobe">Yobe</option>
-            <option value="Zamfara">Zamfara</option>
-            <option value="FCT">FCT</option>
-          </select>
-
-          <select id="lgaSelect" class="form-select">
-            <option value="">Select Local Government</option>
-          </select>
-
-          <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-      </div>
-
-      <!-- USSD Button -->
-      <div class="col-lg-2 col-md-12 text-center text-lg-end">
-        <a href="ussd.html" class="btn btn-success btn-sm w-100 w-lg-auto">Check via USSD</a>
-      </div>
-    </div>
-  </div>
-</header>
-
+    </header>
 
     <main class="container bg-transparent">
-<div class="container mb-5">
-  <ul class="nav nav-tabs justify-content-center" id="forecastTabs">
-    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#today">Today</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#week">This Week</a></li>
-    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#month">This Month</a></li>
-  </ul>
+      <div class="container mb-5">
+        <ul class="nav nav-tabs justify-content-center" id="forecastTabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#today"
+              >Today</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#week">This Week</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#month"
+              >This Month</a
+            >
+          </li>
+        </ul>
 
-  <div2 class="tab-content mt-4">
-    <div3 class="tab-pane fade show active" id="today">
-      <div4 class="row text-center">
-        <div5 class="col row-house">
-          <div6 class="card p-3 row-house">
-      <section class="hero py-5">
-        <div class="container row-house">
-          <div class="row g-4 row-house">
-            <!-- Weather Panel -->
-            <div class="col-lg-8">
-              <div class="text-white p-4 bg-primary bg-opacity-75">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3">
-                  <p class="fw-bold mb-0" id="cityName">Makurdi, Benue</p>
-                  <p class="mb-0">
-                    <span class="me-3" id="currentDate">Tuesday, July 23</span>
-                    <span id="currentTime">16:43pm</span>
-                  </p>
-                </div>
+        <div2 class="tab-content mt-4">
+          <div3 class="tab-pane fade show active" id="today">
+            <div4 class="row text-center">
+              <div5 class="col row-house">
+                <div6 class="card p-3 row-house">
+                  <section class="hero py-5">
+                    <div class="container row-house">
+                      <div class="row g-4 row-house">
+                        <!-- Weather Panel -->
+                        <div class="col-lg-8">
+                          <div class="text-white p-4 bg-primary bg-opacity-75">
+                            <div
+                              class="d-flex justify-content-between align-items-center mb-3"
+                            >
+                              <p class="fw-bold mb-0" id="cityName"></p>
+                              <p class="mb-0">
+                                <span class="me-3" id="currentDate"></span>
+                                <span id="currentTime"></span>
+                              </p>
+                            </div>
 
-                <div
-                  class="d-flex justify-content-between align-items-center my-4">
-                  <div>
-                    <p class="mb-1" id="feels">Feels like: 30°C</p>
-                    <h1 class="display-1 fw-bold mb-0" style="line-height: 1;">
-                      <span id="currentTemp">29°C</span>
-                      <span id="weatherIcon">☁️</span>
-                    </h1>
-                    <p class="fs-5 text-capitalize" id="weather">Cloudy</p>
-                  </div>
-                </div>
+                            <div
+                              class="d-flex justify-content-between align-items-center my-4"
+                            >
+                              <div>
+                                <p class="mb-1">
+                                  Feels like: <span id="feels">0</span>°C
+                                </p>
+                                <h1
+                                  class="display-1 fw-bold mb-0"
+                                  style="line-height: 1"
+                                >
+                                  <span id="currentTemp">0</span>°C
+                                  <img src="" id="weatherIcon" />
+                                </h1>
+                                <p
+                                  class="fs-5 text-capitalize"
+                                  id="weather"
+                                ></p>
+                              </div>
+                            </div>
 
-                <div class="row text-white">
-                  <div class="col-md-6 mb-3">
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>High/Low</p>
-                      <p>26°/22°</p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Wind</p>
-                      <p>8 km/h</p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Humidity</p>
-                      <p>96%</p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Wind Direction</p>
-                      <p>North</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <p>Pressure</p>
-                      <p>1015.2 mb</p>
-                    </div>
-                  </div>
+                            <div class="row text-white">
+                              <div class="col-md-6 mb-3">
+                                <div
+                                  class="d-flex justify-content-between border-bottom pb-1"
+                                >
+                                  <p>High/Low</p>
+                                  <p>
+                                    <span id="highTemp"></span>°/<span
+                                      id="lowTemp"
+                                    ></span
+                                    >°
+                                  </p>
+                                </div>
+                                <div
+                                  class="d-flex justify-content-between border-bottom pb-1"
+                                >
+                                  <p>Humidity</p>
+                                  <p><span id="humidity"></span>%</p>
+                                </div>
+                              </div>
 
-                  <div class="col-md-6 mb-3">
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Cloud Cover</p>
-                      <p>100%</p>
+                              <div class="col-md-6 mb-3">
+                                <div
+                                  class="d-flex justify-content-between border-bottom pb-1"
+                                >
+                                  <p>Visibility</p>
+                                  <p><span id="visibility"></span> m</p>
+                                </div>
+                                <div
+                                  class="d-flex justify-content-between border-bottom pb-1"
+                                >
+                                  <p>Pressure</p>
+                                  <p><span id="pressure"></span> mmHg</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Recommendations Panel -->
+                        <div class="col-lg-4">
+                          <div class="container">
+                            <h2 class="text-center">
+                              WeatherMan Forecast & Farm Tips
+                            </h2>
+                            <div class="row justify-content-center">
+                              <div class="col-12">
+                                <!-- Weather Info -->
+                                <div class="card p-4">
+                                  <h5>Current Weather:</h5>
+                                  <p id="weather-condition"></p>
+                                </div>
+
+                                <!-- Recommendations -->
+                                <div class="card p-4 mt-3">
+                                  <h5>Farm Recommendations:</h5>
+                                  <ul id="recommendation-list"></ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Visibility</p>
-                      <p>9.66 km</p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>UV Index</p>
-                      <p>0 of 11</p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between border-bottom pb-1">
-                      <p>Air Quality</p>
-                      <p>Good</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <p>Air Quality Index</p>
-                      <p>0</p>
-                    </div>
-                  </div>
-                </div>
+                  </section>
+                </div6>
+              </div5>
+            </div4>
+          </div3>
+          <divp class="tab-pane fade" id="week">
+            <div class="container my-5">
+              <h3 class="text-center mb-4 text-black">
+                7-Day Weather Forecast
+              </h3>
+
+              <div class="table-responsive">
+                <table
+                  class="table table-bordered align-middle text-center shadow"
+                >
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Condition</th>
+                      <th scope="col">High / Low</th>
+                      <th scope="col">Pressure (mmHg)</th>
+                      <th scope="col">Visibility</th>
+                      <th scope="col">Humidity (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="predictionList">
+                    <tr></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
+          </divp>
+          <div class="tab-pane fade" id="month">
+            <div class="calendar-container">
+              <div class="calendar-grid">
+                <div class="calendar-header">Mon</div>
+                <div class="calendar-header">Tue</div>
+                <div class="calendar-header">Wed</div>
+                <div class="calendar-header">Thu</div>
+                <div class="calendar-header">Fri</div>
+                <div class="calendar-header">Sat</div>
+                <div class="calendar-header">Sun</div>
+              </div>
 
-            <!-- Recommendations Panel -->
-            <div class="col-lg-4">
-              <div class="container">
-                <h2 class="text-center">
-                 WeatherMan Forecast & Farm Tips
-                </h2>
-                <div class="row justify-content-center">
-                  <div class="col-12">
-                    <!-- Weather Info -->
-                    <div class="card p-4">
-                      <h5>Current Weather:</h5>
-                      <p id="weather-condition">Loading...</p>
-                    </div>
+              <!-- Weather Days (30 days) -->
+              <div class="calendar-grid">
+                <div class="day-card">
+                  <div class="day-title">Jul 1</div>
+                  <div class="weather-icon">⛅</div>
+                  <div class="temp">Avg High: 32°C / Low: 23°C</div>
+                  <div class="temp">Hist Avg: 31°C / 22°C</div>
+                  <!-- <div class="precip">Rain: 10%</div>
+        <div class="wind">Wind: SW 12km/h</div> -->
+                  <!-- <div class="recommendation">Water early in morning</div> -->
+                </div>
+                <div class="day-card">
+                  <div class="day-title">Jul 2</div>
+                  <div class="weather-icon">🌧️</div>
+                  <div class="temp">Avg High: 30°C / Low: 22°C</div>
+                  <div class="temp">Hist Avg: 31°C / 22°C</div>
+                  <!-- <div class="precip">Rain: 70%</div>
+        <div class="wind">Wind: SE 14km/h</div> -->
+                  <!-- <div class="recommendation">Delay planting today</div> -->
+                </div>
 
-                    <!-- Recommendations -->
-                    <div class="card p-4 mt-3">
-                      <h5>Farm Recommendations:</h5>
-                      <ul id="recommendation-list"></ul>
-                    </div>
-                  </div>
+                <div class="day-card">
+                  <div class="day-title">Jul 3</div>
+                  <div class="weather-icon">🌤️</div>
+                  <div class="temp">Avg High: 33°C / Low: 23°C</div>
+                  <div class="temp">Hist Avg: 32°C / 23°C</div>
+                  <!-- <div class="precip">Rain: 20%</div>
+        <div class="wind">Wind: E 10km/h</div> -->
+                  <!-- <div class="recommendation">Fertilize maize</div> -->
+                </div>
+
+                <div class="day-card">
+                  <div class="day-title">Jul 4</div>
+                  <div class="weather-icon">🌦️</div>
+                  <div class="temp">Avg High: 29°C / Low: 21°C</div>
+                  <div class="temp">Hist Avg: 30°C / 21°C</div>
+                  <!-- <div class="precip">Rain: 50%</div>
+        <div class="wind">Wind: NE 11km/h</div> -->
+                  <!-- <div class="recommendation">Harvest cassava early</div> -->
+                </div>
+
+                <div class="day-card">
+                  <div class="day-title">Jul 5</div>
+                  <div class="weather-icon">🌦️</div>
+                  <div class="temp">Avg High: 29°C / Low: 21°C</div>
+                  <div class="temp">Hist Avg: 30°C / 21°C</div>
+                  <!-- <div class="precip">Rain: 50%</div>
+        <div class="wind">Wind: NE 11km/h</div> -->
+                  <!-- <div class="recommendation">Harvest cassava early</div> -->
+                </div>
+
+                <div class="day-card">
+                  <div class="day-title">Jul 6</div>
+                  <div class="weather-icon">🌦️</div>
+                  <div class="temp">Avg High: 29°C / Low: 21°C</div>
+                  <div class="temp">Hist Avg: 30°C / 21°C</div>
+                  <!-- <div class="precip">Rain: 50%</div>
+        <div class="wind">Wind: NE 11km/h</div> -->
+                  <!-- <div class="recommendation">Harvest cassava early</div> -->
+                </div>
+
+                <div class="day-card">
+                  <div class="day-title">Jul 7</div>
+                  <div class="weather-icon">🌦️</div>
+                  <div class="temp">Avg High: 29°C / Low: 21°C</div>
+                  <div class="temp">Hist Avg: 30°C / 21°C</div>
+                  <!-- <div class="precip">Rain: 50%</div>
+        <div class="wind">Wind: NE 11km/h</div> -->
+                  <!-- <div class="recommendation">Harvest cassava early</div> -->
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-          </div6>
-        </div5>
-      </div4>
-    </div3>
-    <divp class="tab-pane fade" id="week">
-      <div class="container my-5">
-  <h3 class="text-center mb-4">7-Day Weather Forecast</h3>
-
-  <div class="table-responsive">
-    <table class="table table-bordered align-middle text-center shadow">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">Day</th>
-          <th scope="col">Date</th>
-          <th scope="col">Condition</th>
-          <th scope="col">High / Low</th>
-          <th scope="col">Precip (%)</th>
-          <th scope="col">Wind</th>
-          <th scope="col">Humidity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Today</td>
-          <td>Tue, Jul 23</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163661.png" alt="Sunny" width="32"> Sunny</td>
-          <td>33°C / 23°C</td>
-          <td>10%</td>
-          <td>NE 15 km/h</td>
-          <td>60%</td>
-        </tr>
-        <tr>
-          <td>Wednesday</td>
-          <td>Jul 24</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163624.png" alt="Cloudy" width="32"> Cloudy</td>
-          <td>30°C / 22°C</td>
-          <td>20%</td>
-          <td>E 12 km/h</td>
-          <td>65%</td>
-        </tr>
-        <tr>
-          <td>Thursday</td>
-          <td>Jul 25</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163620.png" alt="Showers" width="32"> Showers</td>
-          <td>29°C / 21°C</td>
-          <td>60%</td>
-          <td>SE 10 km/h</td>
-          <td>70%</td>
-        </tr>
-        <tr>
-          <td>Friday</td>
-          <td>Jul 26</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163620.png" alt="Rain" width="32"> Rain</td>
-          <td>28°C / 20°C</td>
-          <td>80%</td>
-          <td>S 14 km/h</td>
-          <td>76%</td>
-        </tr>
-        <tr>
-          <td>Saturday</td>
-          <td>Jul 27</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163613.png" alt="Thunderstorm" width="32"> Thunderstorm</td>
-          <td>27°C / 21°C</td>
-          <td>90%</td>
-          <td>SW 18 km/h</td>
-          <td>80%</td>
-        </tr>
-        <tr>
-          <td>Sunday</td>
-          <td>Jul 28</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163639.png" alt="Partly Cloudy" width="32"> Partly Cloudy</td>
-          <td>31°C / 22°C</td>
-          <td>20%</td>
-          <td>W 12 km/h</td>
-          <td>65%</td>
-        </tr>
-        <tr>
-          <td>Monday</td>
-          <td>Jul 29</td>
-          <td><img src="https://cdn-icons-png.flaticon.com/128/1163/1163661.png" alt="Sunny" width="32"> Sunny</td>
-          <td>34°C / 24°C</td>
-          <td>5%</td>
-          <td>NW 10 km/h</td>
-          <td>55%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-    </divp>
-    <div class="tab-pane fade" id="month">
-       <div class="calendar-container">
-    <div class="calendar-grid">
-      <div class="calendar-header">Mon</div>
-      <div class="calendar-header">Tue</div>
-      <div class="calendar-header">Wed</div>
-      <div class="calendar-header">Thu</div>
-      <div class="calendar-header">Fri</div>
-      <div class="calendar-header">Sat</div>
-      <div class="calendar-header">Sun</div>
-    </div>
-
-    <!-- Weather Days (30 days) -->
-    <div class="calendar-grid">
-      <div class="day-card">
-        <div class="day-title">Jul 1</div>
-        <div class="weather-icon">⛅</div>
-        <div class="temp">Avg High: 32°C / Low: 23°C</div>
-        <div class="temp">Hist Avg: 31°C / 22°C</div>
-        <!-- <div class="precip">Rain: 10%</div>
-        <div class="wind">Wind: SW 12km/h</div> -->
-        <!-- <div class="recommendation">Water early in morning</div> -->
+        </div2>
       </div>
-      <div class="day-card">
-        <div class="day-title">Jul 2</div>
-        <div class="weather-icon">🌧️</div>
-        <div class="temp">Avg High: 30°C / Low: 22°C</div>
-        <div class="temp">Hist Avg: 31°C / 22°C</div>
-        <!-- <div class="precip">Rain: 70%</div>
-        <div class="wind">Wind: SE 14km/h</div> -->
-        <!-- <div class="recommendation">Delay planting today</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 3</div>
-        <div class="weather-icon">🌤️</div>
-        <div class="temp">Avg High: 33°C / Low: 23°C</div>
-        <div class="temp">Hist Avg: 32°C / 23°C</div>
-        <!-- <div class="precip">Rain: 20%</div>
-        <div class="wind">Wind: E 10km/h</div> -->
-        <!-- <div class="recommendation">Fertilize maize</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div>
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div>
-        <div class="wind">Wind: NE 11km/h</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-      <div class="day-card">
-        <div class="day-title">Jul 4</div>
-        <div class="weather-icon">🌦️</div>
-        <div class="temp">Avg High: 29°C / Low: 21°C</div>
-        <div class="temp">Hist Avg: 30°C / 21°C</div>
-        <!-- <div class="precip">Rain: 50%</div> -->
-        <!-- <div class="recommendation">Harvest cassava early</div> -->
-      </div>
-
-    </div>
-  </div>
-    </div>
-  </div2>
-</div>    
     </main>
-   
 
     <footer class="footer">
       <div class="sci">
@@ -647,11 +353,12 @@
     </footer>
 
     <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
