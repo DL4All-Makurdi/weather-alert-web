@@ -71,7 +71,64 @@ body {
 .text-center {
   color: #fff;
 }
+.calendar-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
 
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1rem;
+    }
+
+    .calendar-header {
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5rem;
+      background: #002f4b;
+      color: #fff;
+    }
+
+    .day-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .day-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .weather-icon {
+      font-size: 30px;
+      margin: 0.5rem 0;
+    }
+
+    .temp {
+      font-size: 14px;
+    }
+
+    .wind, .precip, .recommendation {
+      font-size: 12px;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .row-house {
+      background-color: transparent; !important
+    }
 /* Hero */
 .hero {
   text-align: center;
