@@ -1,6 +1,6 @@
 /* document.addEventListener('DOMContentLoaded', () => { */
 
-const BACKEND = "http://localhost:8000";
+const BACKEND = "https://api-weather-alert.onrender.com";
 
 const dateElement = document.getElementById("currentDate");
 const timeElement = document.getElementById("currentTime");
